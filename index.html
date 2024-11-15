@@ -1,19 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#317EFB">
-  <link rel="manifest" href="manifest.json">
-  <title>СРМ</title>
-  <link rel="stylesheet" href="style.css">
+  <title>CRM PWA</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div id="app">
-    <h1>Статистика</h1>
-    <canvas id="chart" width="400" height="200"></canvas>
+  <h1>CRM Приложение</h1>
+  <button id="addDataButton">Добавить данные</button>
+  <button id="viewChartButton">Посмотреть график</button>
+  <div id="dataForm" style="display: none;">
+    <label for="number">Число:</label>
+    <input type="number" id="number" required>
+    <label for="sum">Сумма:</label>
+    <input type="number" id="sum" required>
+    <button id="saveData">Сохранить</button>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <canvas id="chart" width="400" height="200"></canvas>
   <script src="app.js"></script>
 </body>
 </html>
