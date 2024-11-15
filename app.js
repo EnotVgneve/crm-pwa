@@ -1,32 +1,53 @@
-const apiUrl = 'https://script.google.com/macros/s/AKfycbzG8DhtlS3JrchXdsduAU9a1BlXsAmU7Exe1ppuGNNriKaF8wJ4Wr2_RSuZHc__H5y9sQ/exec'; // Замените на URL API Google Apps Script.
+const addDataButton = document.getElementById('addDataButton');
+const viewChartButton = document.getElementById('viewChartButton');
+const dataForm = document.getElementById('dataForm');
+const saveDataButton = document.getElementById('saveData');
+const chartCanvas = document.getElementById('chart').getContext('2d');
 
-async function fetchData() {
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
-    renderChart(data);
-  } catch (error) {
-    console.error('Ошибка загрузки данных:', error);
+addDataButton.addEventListener('click', () => {
+  dataForm.style.display = 'block';
+});
+
+saveDataButton.addEventListener('click', () => {
+  const number = document.getElementById('number').value;
+  const sum = document.getElementById('sum').value;
+  if (number && sum) {
+    fetch('https://script.google.com/macros/s/AKfycbzG8DhtlS3JrchXdsduAU9a1BlXsAmU7Exe1ppuGNNriKaF8wJ4Wr2_RSuZHc__H5y9sQ/exec', {
+      method: 'GET',
+    })
+    .then(response => response.json())
+    .then(data => {
+      // Пример: Отправка новых данных в таблицу
+      fetch('https://script.google.com/macros/s/AKfycbzG8DhtlS3JrchXdsduAU9a1BlXsAmU7Exe1ppuGNNriKaF8wJ4Wr2_RSuZHc__H5y9sQ/exec', {
+        method: 'POST',
+        body: JSON.stringify({ number, sum }),
+        headers: { 'Content-Type': 'application/json' },
+      }).then(response => {
+        console.log('Data saved');
+      }).catch(err => console.error(err));
+    });
   }
-}
+});
 
-function renderChart(data) {
-  const labels = data.slice(1).map(row => row[0]); // Даты.
-  const values = data.slice(1).map(row => row[1]); // Значения.
-
-  const ctx = document.getElementById('chart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'Статистика',
-        data: values,
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 2
-      }]
-    }
+viewChartButton.addEventListener('click', () => {
+  fetch('https://script.google.com/macros/s/AKfycbzG8DhtlS3JrchXdsduAU9a1BlXsAmU7Exe1ppuGNNriKaF8wJ4Wr2_RSuZHc__H5y9sQ/exec', {
+    method: 'GET',
+  })
+  .then(response => response.json())
+  .then(data => {
+    const labels = data.map(item => item[0]); // Дата
+    const sums = data.map(item => item[2]); // Сумма
+    new Chart(chartCanvas, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Сумма',
+          data: sums,
+          borderColor: 'rgba(75, 192, 192, 1)',
+          tension: 0.1
+        }]
+      }
+    });
   });
-}
-
-fetchData();
+});
