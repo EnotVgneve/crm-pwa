@@ -1,4 +1,4 @@
-const apiUrl = 'URL_ВАШЕГО_APPS_SCRIPT'; // Замените на URL API Google Apps Script.
+const apiUrl = 'https://script.google.com/macros/s/AKfycbzG8DhtlS3JrchXdsduAU9a1BlXsAmU7Exe1ppuGNNriKaF8wJ4Wr2_RSuZHc__H5y9sQ/exec'; // Замените на URL API Google Apps Script.
 
 async function fetchData() {
   try {
