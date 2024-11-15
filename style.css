@@ -14,3 +14,7 @@ input {
   margin: 5px;
   padding: 8px;
 }
+
+h1 {
+  color: red; /* Добавляем красный цвет для текста */
+}
