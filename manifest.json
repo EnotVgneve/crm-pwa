@@ -1,10 +1,11 @@
 {
-  "name": "СРМ",
-  "short_name": "СРМ",
-  "start_url": "./index.html",
+  "name": "CRM PWA",
+  "short_name": "CRM",
+  "description": "Приложение для учета статистик",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#317EFB",
+  "theme_color": "#4CAF50",
   "icons": [
     {
       "src": "icon.png",
