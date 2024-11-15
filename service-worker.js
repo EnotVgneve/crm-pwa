@@ -1,20 +1,21 @@
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open('app-cache').then(cache => {
+    caches.open('crm-pwa-cache').then((cache) => {
       return cache.addAll([
-        './index.html',
-        './style.css',
-        './app.js',
-        './manifest.json',
-        'https://cdn.jsdelivr.net/npm/chart.js'
+        '/',
+        'index.html',
+        'styles.css',
+        'app.js',
+        'manifest.json',
+        'icon.png'
       ]);
     })
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then(response => {
+    caches.match(event.request).then((response) => {
       return response || fetch(event.request);
     })
   );
